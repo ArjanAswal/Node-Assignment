@@ -2,9 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: './.env' });
 import pool from './utils/db';
 import logger from './utils/logger';
-
-import express from 'express';
-const app = express();
+import app from './app';
 
 process.on('uncaughtException', (err) => {
   logger.error('UNCAUGHT EXCEPTION! 💥 Shutting down...');
