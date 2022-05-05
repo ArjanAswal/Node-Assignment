@@ -4,9 +4,11 @@
   "description": "**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**",
   "main": "index.js",
   "scripts": {
-    "start": "tsc -w & pm2 start dist/server.js -f --watch --name node-assignment --interpreter node --merge-logs --log-date-format 'YYYY-MM-DD HH:mm:ss ZZ' && pm2 monit",
+    "compile": "tsc && node ./dist/server.js",
+    "start": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"npm run compile\"",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "monit": "pm2 monit",
+    "build": "tsc",
+    "pm2": "pm2 start dist/server.js --name node-assignment --interpreter node --merge-logs --log-date-format 'YYYY-MM-DD HH:mm:ss ZZ'",
     "delete": "pm2 delete all"
   },
   "repository": {
@@ -26,6 +28,7 @@
     "@typescript-eslint/parser": "^5.22.0",
     "eslint": "^8.14.0",
     "jest": "^28.0.3",
+    "nodemon": "^2.0.16",
     "typescript": "^4.6.4"
   },
   "dependencies": {
