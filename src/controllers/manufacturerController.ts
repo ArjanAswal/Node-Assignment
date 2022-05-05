@@ -1,13 +1,20 @@
 import { NextFunction, Request, Response } from 'express';
+import db from './../utils/db';
 import 'express-async-errors';
+import { v4 as uuid } from 'uuid';
 
 export const getManufacturers = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  let manufacturers = 'manufacturers';
-  res.json(manufacturers);
+  let manufacturers = await db.query('SELECT * FROM manufacturer');
+  res.status(200).json({
+    status: 'success',
+    data: {
+      manufacturers,
+    },
+  });
 };
 
 export const createManufacturer = async (
@@ -15,8 +22,18 @@ export const createManufacturer = async (
   res: Response,
   next: NextFunction
 ) => {
-  let manufacturers = 'manufacturers';
-  res.json(manufacturers);
+  const { name } = req.body;
+  const id = uuid();
+
+  let manufacturer = await db.query(
+    `INSERT INTO manufacturer VALUES ('${id}', '${name.trim()}') RETURNING *;`
+  );
+  res.status(201).json({
+    status: 'success',
+    data: {
+      manufacturer,
+    },
+  });
 };
 
 export const getManufacturer = async (
@@ -24,8 +41,16 @@ export const getManufacturer = async (
   res: Response,
   next: NextFunction
 ) => {
-  let manufacturers = 'manufacturers';
-  res.json(manufacturers);
+  let manufacturer = await db.query(
+    `SELECT * FROM manufacturer WHERE id = '${req.params.id}'`
+  );
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      manufacturer,
+    },
+  });
 };
 
 export const updateManufacturer = async (
@@ -33,8 +58,20 @@ export const updateManufacturer = async (
   res: Response,
   next: NextFunction
 ) => {
-  let manufacturers = 'manufacturers';
-  res.json(manufacturers);
+  const { name } = req.body;
+
+  let manufacturer = await db.query(
+    `UPDATE manufacturer SET name = '${name.trim()}' WHERE id = '${
+      req.params.id
+    }' RETURNING *;`
+  );
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      manufacturer,
+    },
+  });
 };
 
 export const deleteManufacturer = async (
@@ -42,8 +79,11 @@ export const deleteManufacturer = async (
   res: Response,
   next: NextFunction
 ) => {
-  let manufacturers = 'manufacturers';
-  res.json(manufacturers);
+  await db.query(`DELETE from manufacturer WHERE id = '${req.params.id}'`);
+
+  res.status(204).json({
+    status: 'success',
+  });
 };
 
 export const getEquipments = async (
@@ -51,6 +91,13 @@ export const getEquipments = async (
   res: Response,
   next: NextFunction
 ) => {
-  let manufacturers = 'manufacturers';
-  res.json(manufacturers);
+  let equipments = await db.query(
+    `SELECT * FROM equipment WHERE manufacturer_id = '${req.params.id}'`
+  );
+  res.status(200).json({
+    status: 'success',
+    data: {
+      equipments,
+    },
+  });
 };

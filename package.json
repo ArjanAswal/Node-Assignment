@@ -28,6 +28,7 @@
     "@types/express-rate-limit": "^6.0.0",
     "@types/helmet": "^4.0.0",
     "@types/pg": "^8.6.5",
+    "@types/uuid": "^8.3.4",
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^5.22.0",
     "@typescript-eslint/parser": "^5.22.0",
@@ -46,6 +47,7 @@
     "helmet": "^5.0.2",
     "pg": "^8.7.3",
     "pm2": "^5.2.0",
+    "uuid": "^8.3.2",
     "winston": "^3.7.2",
     "xss": "^1.0.11"
   }

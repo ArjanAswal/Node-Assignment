@@ -13,8 +13,4 @@ pool.on('error', (err, client) => {
   process.exit(-1);
 });
 
-export default {
-  query: (queryText: string, values: any[], callback: any) => {
-    return pool.query(queryText, values, callback);
-  },
-};
+export default pool;

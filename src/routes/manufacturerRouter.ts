@@ -8,12 +8,12 @@ router
   .get(manufacturerController.getManufacturers)
   .post(manufacturerController.createManufacturer);
 
+router.route('/:id/equipments').get(manufacturerController.getEquipments);
+
 router
   .route('/:id')
   .get(manufacturerController.getManufacturer)
   .patch(manufacturerController.updateManufacturer)
   .delete(manufacturerController.deleteManufacturer);
-
-router.route('/:id/equipments').get(manufacturerController.getEquipments);
 
 export default router;
