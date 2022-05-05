@@ -1,0 +1,37 @@
+{
+  "name": "node-assignment",
+  "version": "1.0.0",
+  "description": "**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc -w & pm2 start dist/server.js -f --watch --name node-assignment --interpreter node --merge-logs --log-date-format 'YYYY-MM-DD HH:mm:ss ZZ' && pm2 monit",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "monit": "pm2 monit",
+    "delete": "pm2 delete all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://ArjanAswal@bitbucket.org/arjanaswal/node-assignment.git"
+  },
+  "author": "Arjan Aswal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/arjanaswal/node-assignment/issues"
+  },
+  "homepage": "https://bitbucket.org/arjanaswal/node-assignment#readme",
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/pg": "^8.6.5",
+    "@typescript-eslint/eslint-plugin": "^5.22.0",
+    "@typescript-eslint/parser": "^5.22.0",
+    "eslint": "^8.14.0",
+    "jest": "^28.0.3",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "pg": "^8.7.3",
+    "pm2": "^5.2.0"
+  }
+}
