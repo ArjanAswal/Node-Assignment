@@ -10,6 +10,6 @@ pipelines:
             - apt-get update && apt-get install -y rsync
             - ssh-keyscan -H $SSH_SERVER_IP >> ~/.ssh/known_hosts
             - cd $BITBUCKET_CLONE_DIR
-            - rsync -r -v -e ssh . $SSH_SERVER_USER@$SSH_SERVER_IP:/node-assignment --delete-before --exclude '.git'
-            - ssh $SSH_SERVER_USER@$SSH_SERVER_IP 'cd /node-assignment && npm install'
-            - ssh $SSH_SERVER_USER@$SSH_SERVER_IP 'cd /node-assignment && npm run stop && npm run build && npm run pm2'
+            - rsync -r -v -e ssh . $SSH_SERVER_USER@$SSH_SERVER_IP:/app/node-assignment --delete-before --exclude '.git'
+            - ssh $SSH_SERVER_USER@$SSH_SERVER_IP 'cd /app/node-assignment && npm install'
+            - ssh $SSH_SERVER_USER@$SSH_SERVER_IP 'cd /app/node-assignment && npm run stop && npm run build && npm run pm2'
