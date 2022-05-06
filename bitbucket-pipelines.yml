@@ -1,15 +1,17 @@
+# Push artifacts to ec2 destination using rsync
+
 image: node:10.15.3
 
 pipelines:
-  branches:
-    main:
-      - step:
-          caches:
-            - node
-          script: # Modify the commands below to build your repository.
-            - apt-get update && apt-get install -y rsync
-            - ssh-keyscan -H $SSH_SERVER_IP >> ~/.ssh/known_hosts
-            - cd $BITBUCKET_CLONE_DIR
-            - rsync -r -v -e ssh . $SSH_SERVER_USER@$SSH_SERVER_IP:/app/node-assignment --delete-before --exclude '.git'
-            - ssh $SSH_SERVER_USER@$SSH_SERVER_IP 'cd /app/node-assignment && npm install'
-            - ssh $SSH_SERVER_USER@$SSH_SERVER_IP 'cd /app/node-assignment && npm run stop && npm run build && npm run pm2'
+  default:
+    - step:
+        name: Deploy artifacts using rsync to $SSH_SERVER_IP instance
+        script:
+          - pipe: atlassian/rsync-deploy:0.3.2
+            variables:
+              USER: $SSH_SERVER_USER
+              SERVER: $SSH_SERVER_IP
+              REMOTE_PATH: '${REMOTE_DESTINATION_PATH}'
+              LOCAL_PATH: '${BITBUCKET_CLONE_DIR}/'
+              EXTRA_ARGS: '--exclude=.bitbucket/ --exclude=.git/ --exclude=bitbucket-pipelines.yml --exclude=.gitignore'
+          - echo "Deployment is done...!"
