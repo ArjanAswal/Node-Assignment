@@ -7,14 +7,14 @@
     "compile": "tsc && node ./dist/server.js",
     "start": "./node_modules/nodemon/bin/nodemon.js -e ts  --exec \"npm run compile\"",
     "test": "jest --runInBand --forceExit",
-    "build": "tsc",
-    "pm2": "pm2 start dist/server.js --name node-assignment --interpreter node --merge-logs --log-date-format 'YYYY-MM-DD HH:mm:ss ZZ'",
-    "monit": "pm2 monit",
-    "list": "pm2 list all",
-    "log": "pm2 log",
-    "delete": "pm2 delete all",
-    "restart": "pm2 restart all",
-    "stop": "pm2 stop all"
+    "build": "sudo tsc",
+    "pm2": "sudo pm2 start dist/server.js --name node-assignment --interpreter node --merge-logs --log-date-format 'YYYY-MM-DD HH:mm:ss ZZ'",
+    "monit": "sudo pm2 monit",
+    "list": "sudo pm2 list all",
+    "log": "sudo pm2 log",
+    "delete": "sudo pm2 delete all",
+    "restart": "sudo pm2 restart all",
+    "stop": "sudo pm2 stop all"
   },
   "repository": {
     "type": "git",
