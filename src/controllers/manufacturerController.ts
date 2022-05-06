@@ -8,7 +8,8 @@ export const getManufacturers = async (
   res: Response,
   next: NextFunction
 ) => {
-  let manufacturers = await db.query('SELECT * FROM manufacturer');
+  let data = await db.query('SELECT * FROM manufacturer');
+  let manufacturers = data.rows;
   res.status(200).json({
     status: 'success',
     data: {
@@ -25,9 +26,11 @@ export const createManufacturer = async (
   const { name } = req.body;
   const id = uuid();
 
-  let manufacturer = await db.query(
+  let data = await db.query(
     `INSERT INTO manufacturer VALUES ('${id}', '${name.trim()}') RETURNING *;`
   );
+  let manufacturer = data.rows;
+
   res.status(201).json({
     status: 'success',
     data: {
@@ -41,10 +44,10 @@ export const getManufacturer = async (
   res: Response,
   next: NextFunction
 ) => {
-  let manufacturer = await db.query(
+  let data = await db.query(
     `SELECT * FROM manufacturer WHERE id = '${req.params.id}'`
   );
-
+  let manufacturer = data.rows;
   res.status(200).json({
     status: 'success',
     data: {
@@ -60,11 +63,12 @@ export const updateManufacturer = async (
 ) => {
   const { name } = req.body;
 
-  let manufacturer = await db.query(
+  let data = await db.query(
     `UPDATE manufacturer SET name = '${name.trim()}' WHERE id = '${
       req.params.id
     }' RETURNING *;`
   );
+  let manufacturer = data.rows;
 
   res.status(200).json({
     status: 'success',
@@ -91,9 +95,11 @@ export const getEquipments = async (
   res: Response,
   next: NextFunction
 ) => {
-  let equipments = await db.query(
+  let data = await db.query(
     `SELECT * FROM equipment WHERE manufacturer_id = '${req.params.id}'`
   );
+  let equipments = data.rows;
+
   res.status(200).json({
     status: 'success',
     data: {

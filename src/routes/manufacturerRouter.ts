@@ -8,7 +8,7 @@ router
   .get(manufacturerController.getManufacturers)
   .post(manufacturerController.createManufacturer);
 
-router.route('/:id/equipments').get(manufacturerController.getEquipments);
+router.route('/:id/equipment').get(manufacturerController.getEquipments);
 
 router
   .route('/:id')

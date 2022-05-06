@@ -6,6 +6,8 @@ import rateLimit from 'express-rate-limit';
 import AppError from './utils/appError';
 import globalErrorHandler from './controllers/errorController';
 import manufacturerRouter from './routes/manufacturerRouter';
+import equipmentRouter from './routes/equipmentRouter';
+
 const app = express();
 
 app.enable('trust proxy');
@@ -34,6 +36,7 @@ app.use(compression());
 
 // App Routes
 app.use('/manufacturer', manufacturerRouter);
+app.use('/equipment', equipmentRouter);
 
 app.all('*', (req) => {
   throw new AppError(`Can't find ${req.originalUrl} on this server!`, 404);
