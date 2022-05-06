@@ -9,6 +9,9 @@
     "test": "jest --runInBand --forceExit",
     "build": "tsc",
     "pm2": "pm2 start dist/server.js --name node-assignment --interpreter node --merge-logs --log-date-format 'YYYY-MM-DD HH:mm:ss ZZ'",
+    "monit": "pm2 monit",
+    "list": "pm2 list all",
+    "log": "pm2 log",
     "delete": "pm2 delete all",
     "restart": "pm2 restart all",
     "stop": "pm2 stop all"
