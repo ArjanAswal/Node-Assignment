@@ -19,6 +19,7 @@ pipelines:
               COMMAND: 'upload'
               ZIP_FILE: 'application.zip'
               VERSION_LABEL: 'my-app-1.0.0'
+              DEBUG: 'true'
           - pipe: atlassian/aws-code-deploy:0.2.5
             variables:
               AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
@@ -32,3 +33,4 @@ pipelines:
               VERSION_LABEL: 'my-app-1.0.0'
               IGNORE_APPLICATION_STOP_FAILURES: 'true'
               FILE_EXISTS_BEHAVIOR: 'OVERWRITE'
+              DEBUG: 'true'
