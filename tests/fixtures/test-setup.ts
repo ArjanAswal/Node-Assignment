@@ -27,8 +27,3 @@ afterEach(async () => {
   await pool.query('DROP TABLE IF EXISTS equipment');
   await pool.query('DROP TABLE IF EXISTS manufacturer');
 });
-
-// Disconnect Postgres
-afterAll(async () => {
-  await pool.end();
-});

@@ -4,40 +4,10 @@ import logger from './../utils/logger';
 
 const sendErrorDev = (err: AppError, res: Response) => {
   switch (err.name) {
-    case 'CastError':
-      res.status(404).json({
-        status: err.status,
-        message: 'Resource not found',
-      });
-      break;
-
-    case 'ValidationError':
+    case 'DBError':
       res.status(400).json({
         status: err.status,
         message: 'Invalid data',
-      });
-      break;
-
-    case 'jsonld.SyntaxError':
-      res.status(400).json({
-        status: err.status,
-        message: err.message,
-      });
-      break;
-
-    case 'MongoServerError':
-      res.status(400).json({
-        status: err.status,
-        message: 'Invalid data',
-      });
-      break;
-
-    default:
-      res.status(err.statusCode).json({
-        status: err.status,
-        error: err,
-        message: err.message,
-        stack: err.stack,
       });
       break;
   }
@@ -70,8 +40,6 @@ export default (
   res: Response,
   next: NextFunction
 ) => {
-  // console.log(err.stack);
-
   err.statusCode = err.statusCode ?? 500;
   err.status = err.status ?? 'error';
 

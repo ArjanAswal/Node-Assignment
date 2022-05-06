@@ -1,4 +1,5 @@
 import { Pool, QueryResult } from 'pg';
+import logger from './logger';
 const pool = new Pool({
   user: process.env.POSTGRES_USER ?? 'postgres',
   host: process.env.POSTGRES_HOST ?? 'localhost',
@@ -10,8 +11,14 @@ const pool = new Pool({
 // the pool will emit an error on behalf of any idle clients
 // it contains if a backend error or network partition happens
 pool.on('error', (err, client) => {
-  console.error('Unexpected error on idle client', err);
+  logger.error('Unexpected error on idle client', err);
   process.exit(-1);
 });
 
-export default pool;
+export default {
+  query: async (text: string) => {
+    const result = await pool.query(text);
+
+    return result.rows;
+  },
+};

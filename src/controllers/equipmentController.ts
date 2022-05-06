@@ -2,14 +2,20 @@ import { NextFunction, Request, Response } from 'express';
 import db from './../utils/db';
 import 'express-async-errors';
 import { v4 as uuid } from 'uuid';
+import AppError from '../utils/appError';
 
 export const getEquipments = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  let data = await db.query('SELECT * FROM equipment');
-  let equipments = data.rows;
+  let equipments;
+
+  try {
+    equipments = await db.query('SELECT * FROM equipment');
+  } catch (error) {
+    throw new AppError('DBError', 400);
+  }
 
   res.status(200).json({
     status: 'success',
@@ -28,10 +34,16 @@ export const createEquipment = async (
 
   const id = uuid();
 
-  let data = await db.query(
-    `INSERT INTO equipment VALUES ('${id}', '${manufacturer_id.trim()}', '${model.trim()}', '${serialNumber.trim()}') RETURNING *;`
-  );
-  let equipment = data.rows;
+  let equipment;
+
+  try {
+    equipment = await db.query(
+      `INSERT INTO equipment VALUES ('${id}', '${manufacturer_id.trim()}', '${model.trim()}', '${serialNumber.trim()}') RETURNING *;`
+    );
+  } catch (error) {
+    throw new AppError('DBError', 400);
+  }
+
   res.status(201).json({
     status: 'success',
     data: {
@@ -45,10 +57,15 @@ export const getEquipment = async (
   res: Response,
   next: NextFunction
 ) => {
-  let data = await db.query(
-    `SELECT * FROM equipment WHERE id = '${req.params.id}'`
-  );
-  let equipment = data.rows;
+  let equipment;
+
+  try {
+    equipment = await db.query(
+      `SELECT * FROM equipment WHERE id = '${req.params.id}'`
+    );
+  } catch (error) {
+    throw new AppError('DBError', 400);
+  }
 
   res.status(200).json({
     status: 'success',
@@ -65,19 +82,17 @@ export const updateEquipment = async (
 ) => {
   const { model, serialNumber } = req.body;
 
-  console.log(
-    `UPDATE equipment SET model = '${model.trim()}' serialNumber = '${serialNumber.trim()}' WHERE id = '${
-      req.params.id
-    }'`
-  );
+  let equipment;
 
-  let data = await db.query(
-    `UPDATE equipment SET model = '${model.trim()}', serialNumber = '${serialNumber.trim()}' WHERE id = '${
-      req.params.id
-    }' RETURNING *;`
-  );
-
-  let equipment = data.rows;
+  try {
+    equipment = await db.query(
+      `UPDATE equipment SET model = '${model.trim()}', serialNumber = '${serialNumber.trim()}' WHERE id = '${
+        req.params.id
+      }' RETURNING *;`
+    );
+  } catch (error) {
+    throw new AppError('DBError', 400);
+  }
 
   res.status(200).json({
     status: 'success',
@@ -92,7 +107,15 @@ export const deleteEquipment = async (
   res: Response,
   next: NextFunction
 ) => {
-  await db.query(`DELETE from equipment WHERE id = '${req.params.id}'`);
+  let equipment;
+
+  try {
+    equipment = await db.query(
+      `DELETE from equipment WHERE id = '${req.params.id}'`
+    );
+  } catch (error) {
+    throw new AppError('DBError', 400);
+  }
 
   res.status(204).json({
     status: 'success',
@@ -104,15 +127,20 @@ export const getManufacturers = async (
   res: Response,
   next: NextFunction
 ) => {
-  let data = await db.query(
-    `SELECT manufacturer.id,
+  let manufacturers;
+
+  try {
+    manufacturers = await db.query(
+      `SELECT manufacturer.id,
     manufacturer.name
     FROM manufacturer
     LEFT JOIN equipment
     ON manufacturer.id = equipment.manufacturer_id AND
     equipment.id='${req.params.id}';`
-  );
-  let manufacturers = data.rows;
+    );
+  } catch (error) {
+    throw new AppError('DBError', 400);
+  }
 
   res.status(200).json({
     status: 'success',
