@@ -4,7 +4,7 @@ The documentation for Node Assignment app which does basic CRUD functions on Pos
 
 ## Video Walkthrough
 
-- Watch the video walkthrough of the assignment [here](https://www.loom.com/share/19e83b5418ba43a3a8f03c16ed543c43).
+Watch the video walkthrough of the assignment [here](https://www.loom.com/share/19e83b5418ba43a3a8f03c16ed543c43).
 
 ## Features
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Install node.js and Forever.js
+# Install node.js
 sudo apt-get update
 sudo apt-get install nodejs-legacy -y
 sudo apt-get install npm  -y
