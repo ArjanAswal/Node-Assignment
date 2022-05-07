@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import AppError from '../utils/appError';
 import logger from './../utils/logger';
+import 'express-async-errors';
 
 const sendErrorDev = (err: AppError, res: Response) => {
   switch (err.name) {

@@ -7,6 +7,7 @@ import AppError from './utils/appError';
 import globalErrorHandler from './controllers/errorController';
 import manufacturerRouter from './routes/manufacturerRouter';
 import equipmentRouter from './routes/equipmentRouter';
+import 'express-async-errors';
 
 const app = express();
 
