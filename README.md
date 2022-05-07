@@ -34,7 +34,7 @@ Then run the following command:
 
 ```bash
 docker-compose up --build
-npm start
+npm run pm2
 ```
 
 The api will get exposed at `localhost:3000`.
