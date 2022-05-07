@@ -34,6 +34,7 @@ Then run the following command:
 
 ```bash
 docker-compose up --build
+npm run build
 npm run pm2
 ```
 
