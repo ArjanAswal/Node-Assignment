@@ -134,7 +134,7 @@ export const getManufacturers = async (
       `SELECT manufacturer.id,
     manufacturer.name
     FROM manufacturer
-    LEFT JOIN equipment
+    INNER JOIN equipment
     ON manufacturer.id = equipment.manufacturer_id AND
     equipment.id='${req.params.id}';`
     );

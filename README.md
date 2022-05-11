@@ -110,4 +110,4 @@ The Postman Documentation, Curl commands and the API Playground is hosted [here]
 ## Deployment
 
 The app is deployed to EC2 instance using BitBucket Pipelines and AWS CodeDeploy. A new instance of the app is created for each build using pm2.
-The app is hosted [here](http://3.80.186.17:3000/manufacturer). The REST endpoints are open for remote testing.
+The API is hosted [here](http://3.80.186.17:3000/manufacturer). The REST endpoints are open for remote testing.
